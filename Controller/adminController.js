@@ -6,7 +6,7 @@ import 'dotenv/config'
 const signUp = async(req,res)=>{
     console.log('hitted')
     try {
-        const {name,email,password,role} = req.body
+        const {TheaterName,location,email,password,} = req.body
         console.log(email)
         const adminExist = await ADMIN.findOne({email})
         console.log(adminExist)
@@ -18,7 +18,8 @@ const signUp = async(req,res)=>{
         const hashedPassword = await bcrypt.hash(password,saltRounds)
         
         const adminUser = new ADMIN({
-            name,
+            TheaterName,
+            location,
             email,
             password: hashedPassword,
             role: 'TheaterOwner'
@@ -28,13 +29,7 @@ const signUp = async(req,res)=>{
         if(!adminUser){
             res.status(400).json('user is not created')
         }
-        // const payload = { 
-        //     id :adminUser.id ,
-        //     role : adminUser.role
-        // }
-
-        // const token = jwt.sign(payload,process.env.SECRET_KEY,{expiresIn: '1d'})
-        // res.cookie("token", token);
+       
         res.status(201).json({message:" Successfully Signed"})
     
         

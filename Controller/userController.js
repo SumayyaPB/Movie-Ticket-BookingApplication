@@ -31,9 +31,6 @@ const doSignUp = async(req,res)=>{
          return  res.status(400).json('user is not created')
       }
      
-      const token = jwt.sign({id : user.id}, process.env.SECRET_KEY, { expiresIn: '1d' })
-      console.log(token)
-      res.cookie("token", token)
       res.status(201).json({ message: "successfully signed in!"});
     
    } catch (error) {

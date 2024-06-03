@@ -1,9 +1,13 @@
 import mongoose from 'mongoose'
 
 const adminSchema = new mongoose.Schema({
-    name:{
+   TheaterName:{
         type: String,
         required : true
+    },
+    location:{
+        type: String,
+        required:true
     },
     email:{
         type : String,
