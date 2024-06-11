@@ -1,11 +1,9 @@
-const mongoose = require('mongoose');
+
+
+import mongoose from 'mongoose';
 
 const BookingSchema = new mongoose.Schema({
-  movie : {
-    type : mongoose.Schema.Types.ObjectId,
-    ref : MOVIE,
-    required : true
-  },
+                        
   showTime :{
     type : String,
     required : true
@@ -14,23 +12,33 @@ const BookingSchema = new mongoose.Schema({
     type : Date,
     required : true
   },
+  movieId : {
+    type : mongoose.Schema.Types.ObjectId,
+    ref : 'MOVIE',
+    required : true
+  },
+  theaterId : {
+    type : mongoose.Schema.Types.ObjectId,
+    ref : 'THEATER',
+    required : true
+  },
   seat:[{
-    row : {
-      type : String ,
-      required : true
-    },
-    columns : {
-      type : Number,
-      required : true
-    },
-    seatId :{
-      type : String,
-      required : true
-    },
-    amount :{
-      type : Number,
-      required : true
-    }
+        row : {
+          type : String ,
+          required : true
+        },
+        columns : {
+          type : Number,
+          required : true
+        },
+        seatId :{
+          type : String,
+          required : true
+        },
+        amount :{
+          type : Number,
+          required : true
+        }
   }],
   totalPrice :{
     type : String,
@@ -40,16 +48,16 @@ const BookingSchema = new mongoose.Schema({
     type :String,
     required : true
   },
-  paymentId :{
-    type :String,
-    required : true
-  },
-  Users:{
+  // paymentId :{
+  //   type :String,
+  //   required : true
+  // },
+  userId:{
    type : mongoose.Schema.Types.ObjectId,
    ref: "USER",
    required : true
   }
 });
 
-const Booking= mongoose.model('Booking', BookingSchema);
-export default Booking
+const BOOKING= mongoose.model('Booking', BookingSchema);
+export default BOOKING

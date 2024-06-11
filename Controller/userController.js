@@ -1,9 +1,10 @@
 import USER from "../model/userModel.js";
+import  mongoose  from "mongoose";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 const doSignUp = async(req,res)=>{
- 
+ console.log(req.body)
    try {
       const {firstName,lastName,email,password} = req.body
     
@@ -22,6 +23,7 @@ const doSignUp = async(req,res)=>{
         lastName,
         email,
         password:hashedPassword,
+        role : 'user'
         
       })
        await user.save()
@@ -54,7 +56,7 @@ const doLogin  = async (req,res)=>{
       return res.status(400).json("incorrect password")
     }
   
-    const token = jwt.sign({id : user.id},process.env.SECRET_KEY,{expiresIn:"1d"})
+    const token = jwt.sign({id : user.id, role : user.role},process.env.SECRET_KEY,{expiresIn:"1d"})
     res.cookie("token",token);
     res.status(200).json({message:"Logged In!"})
     } catch (error) {
@@ -62,9 +64,36 @@ const doLogin  = async (req,res)=>{
     return res.status(500).json('internal server error')
   }
 }
+ 
+
+const checkLogin = async (req, res) => {
+  try {
+    const user = req.user;
+    console.log("role ", user.role)
+
+    console.log("Authenticated user ID:", user.id);
+
+
+    // const findUser = await USER.findById({ id: user.id });
+    const findUser = await USER.findOne({ _id: new mongoose.Types.ObjectId(user.id) });
+
+    if (!findUser) {
+      return res.status(401).json({ message: "Authentication failed", success: false });
+    }
+
+    res.json({ message: "User authenticated", success: true });
+  } catch (error) {
+    console.error("Internal server error:", error);
+    res.status(500).json({ message: 'Internal server error', success: false });
+  }
+};
+
+export default checkLogin;
 
 
 
-export {doSignUp,doLogin} 
+
+
+export {doSignUp,doLogin,checkLogin} 
 
 

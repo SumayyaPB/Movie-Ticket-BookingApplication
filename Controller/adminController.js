@@ -1,12 +1,13 @@
 import ADMIN from "../model/adminModel.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import mongoose from 'mongoose'
 import 'dotenv/config'
 
 const signUp = async(req,res)=>{
     console.log('hitted')
     try {
-        const {TheaterName,location,email,password,} = req.body
+        const {name,location,email,password,} = req.body
         console.log(email)
         const adminExist = await ADMIN.findOne({email})
         console.log(adminExist)
@@ -18,7 +19,7 @@ const signUp = async(req,res)=>{
         const hashedPassword = await bcrypt.hash(password,saltRounds)
         
         const adminUser = new ADMIN({
-            TheaterName,
+            name,
             location,
             email,
             password: hashedPassword,
@@ -29,7 +30,6 @@ const signUp = async(req,res)=>{
         if(!adminUser){
             res.status(400).json('user is not created')
         }
-       
         res.status(201).json({message:" Successfully Signed"})
     
         
@@ -67,11 +67,16 @@ const signIn = async(req,res)=>{
 const getProfile = async(req,res)=>{
     console.log('hitted')
     try {
+        
         const adminUsers = await ADMIN.find({});
     if (!adminUsers){
         res.status(400).json('Users not found')
     }
-    res.status(200).json(adminUsers)
+    res.status(200).json({
+        user : req.user,
+        adminUsers
+    })
+        
     } catch (error) {
         console.log(error);
         res.status(500).json({error : 'Internal Server Error'})  
@@ -105,4 +110,27 @@ const deleteProfile = async(req,res)=>{
     }
 }
 
-export {signUp,signIn,getProfile,updateProfile,deleteProfile}
+const CheckTheaterOwner = async(req,res)=>{
+    try {
+        const user = req.user;
+        console.log("role ", user.role)
+    
+        console.log("Authenticated user ID:", user.id);
+    
+    
+        // const findUser = await USER.findById({ id: user.id });
+        const findUser = await ADMIN.findOne({ _id: new mongoose.Types.ObjectId(user.id) });
+    
+        if (!findUser) {
+          return res.status(401).json({ message: "Authentication failed", success: false });
+        }
+    
+        res.json({ message: "User authenticated", success: true });
+      } catch (error) {
+        console.error("Internal server error:", error);
+        res.status(500).json({ message: 'Internal server error', success: false });
+      }
+}
+
+
+export {signUp,signIn,getProfile,updateProfile,deleteProfile,CheckTheaterOwner}

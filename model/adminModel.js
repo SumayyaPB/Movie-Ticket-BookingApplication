@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const adminSchema = new mongoose.Schema({
-   TheaterName:{
+    name:{
         type: String,
         required : true
     },

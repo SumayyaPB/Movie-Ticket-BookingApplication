@@ -1,14 +1,12 @@
 import mongoose from 'mongoose'
 
 const theaterSchema = new mongoose.Schema({
-    name : {
-        type :String,
+
+    theaterName:{
+          type :String,
         required : true
     },
-    location:{
-        type : String,
-        required :true
-    },
+    
     seats:{
         type : Array,
         required : true
@@ -47,5 +45,5 @@ const theaterSchema = new mongoose.Schema({
   
 });
 
-const THEATER =  mongoose.model('Theater', ShowtimeSchema);
+const THEATER =  mongoose.model('Theater', theaterSchema);
 export default THEATER 

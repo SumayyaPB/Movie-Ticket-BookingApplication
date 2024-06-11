@@ -9,7 +9,7 @@ const authenticateTheaterOwner = (req,res,next)=>{
 
     if(err) return res.sendStatus(403);
 
-    req.user = user;
+    req.user= user;
     console.log(req.user.role);
     if(req.user.role !== 'TheaterOwner' && req.user.role !== 'Admin'){
         return res.send('not Authenticated')
