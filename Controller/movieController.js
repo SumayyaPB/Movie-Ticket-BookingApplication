@@ -1,15 +1,45 @@
 
 import MOVIE from '../model/movieModel.js'
+import { cloudinaryInstance } from '../Config/cloudinary.js'
+
 
 const addMovie = async(req,res)=>{
     console.log('Yes hitted')
     try {
-        
-        const {movieImg,title,description,releaseDate,rating,duration,genre}=req.body;
+        console.log(req.file)
+        if(!req.file){
+            res.status(400).json('file is not visible')
+            
+        }
+
+        const uploadToCloudinary = (filePath) => {
+            return new Promise((resolve, reject) => {
+                cloudinaryInstance.uploader.upload(filePath, (err, result) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve(result);
+                });
+            });
+        };
+
+        // Wait for the Cloudinary upload to complete
+        const result = await uploadToCloudinary(req.file.path);
+        const imageUrl = result.url;
+        console.log("hi",imageUrl)
+        // cloudinaryInstance.uploader.upload(req.file.path, async (err, result) => {
+        //     if(err){
+        //        console.log(err);
+        //        return res.status(500).json({error:"Error"})
+        //     }
+        // })
+        // const imageUrl = result.url
+         console.log('hitted')
+        const {title,description,releaseDate,rating,duration,genre}=req.body;
         console.log(req.body)
         
         const newMovie = new MOVIE({
-            movieImg,
+            movieImg : imageUrl,
             title,
             description,
             rating,
@@ -18,7 +48,7 @@ const addMovie = async(req,res)=>{
             genre
         })
         await newMovie.save()
-
+       console.log(newMovie)
         res.status(201).json('movie added successfully')
       
     } catch (error) {

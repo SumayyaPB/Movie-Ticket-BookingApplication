@@ -8,7 +8,7 @@ import adminRouter from './Router/adminRouter.js'
 import { movieRouter } from './Router/movieRouter.js'
 import { theaterRouter } from './Router/theaterRouter.js'
 import { bookingRouter } from './Router/bookingRouter.js'
-import { imageUploadRouter } from './Router/imageUploadRouter.js'
+// import { imageUploadRouter } from './Router/imageUploadRouter.js'
 import { paymentRouter } from './Router/paymentRouter.js'
 
 const app = express()
@@ -22,7 +22,7 @@ app.use('/api/v1/admin',adminRouter);
 app.use('/api/v1/movie',movieRouter);
 app.use('/api/v1/theater',theaterRouter);
 app.use('/api/v1/booking',bookingRouter);
-app.use('/api/v1/upload',imageUploadRouter);
+// app.use('/api/v1/upload',imageUploadRouter);
 app.use('/api/v1/order',paymentRouter);
 
 

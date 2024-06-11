@@ -1,9 +1,10 @@
 import express from 'express'
 import { addCelebtoMovie, addMovie, dltMovie, getMovieById, getMovies, updateMovie } from '../Controller/movieController.js';
 import { authenticateTheaterOwner } from '../Middleware/adminMiddleware.js';
+import upload from '../Middleware/multerMiddleware.js';
 const movieRouter = express.Router();
 
-movieRouter.post('/addmovie',authenticateTheaterOwner,addMovie);
+movieRouter.post('/addmovie',authenticateTheaterOwner,upload.single('file'),addMovie);
 
 movieRouter.post('/addcelebrity',authenticateTheaterOwner,addCelebtoMovie)
 
