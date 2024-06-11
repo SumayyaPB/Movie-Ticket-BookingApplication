@@ -13,9 +13,13 @@ cloudinary.config({
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+const uploadSingle = upload.single('flower');
 
 const uploadImage = async (req, res) => {
+    console.log(req.file)
+    console.log('first hit')
     const file = req.file;
+    console.log(file)
     if (!file) {
         return res.status(400).json({ error: 'No image file provided' });
     }
@@ -39,6 +43,6 @@ const uploadImage = async (req, res) => {
          })
 }
 
-export {uploadImage,upload};
+export {uploadImage,uploadSingle};
 
 

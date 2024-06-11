@@ -1,8 +1,9 @@
 import express from "express"
-import { upload, uploadImage } from "../Controller/ImageUploadController.js";
+import multer from "multer";
+import { uploadImage, uploadSingle } from "../Controller/ImageUploadController.js";
 const imageUploadRouter = express.Router();
 
-imageUploadRouter.post('/uploadimage',upload.single('myimage'),uploadImage);
 
+imageUploadRouter.post('/uploadimage',uploadSingle,uploadImage);
 
 export {imageUploadRouter}

@@ -1,10 +1,10 @@
-import { mongo } from 'mongoose';
+
 import MOVIE from '../model/movieModel.js'
 
 const addMovie = async(req,res)=>{
     console.log('Yes hitted')
     try {
-        console.log('hitted')
+        
         const {movieImg,title,description,releaseDate,rating,duration,genre}=req.body;
         console.log(req.body)
         
@@ -89,7 +89,7 @@ const getMovieById =async(req,res)=>{
 
 const updateMovie =async(req,res)=>{
     try {
-        
+    
     const { id } = req.params;
     const movieData = req.body;
         const updatedMovie = await MOVIE.findByIdAndUpdate(id, { $set: movieData }, { new: true});
