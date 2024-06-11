@@ -55,40 +55,6 @@ const addMovieScheduletoScreen = async(req,res)=>{
     }
 }
 
-const addSeatstoTheater = async(req,res)=>{
-
-    try {
-        const {row,columns,seatId,amount} = req.body
-        console.log(req.body)
-        const seats = await THEATER.findById(theaterId);
-        console.log(theaterId)
-        
-        if(!theater){
-            res.status(400).json('Theater not found')
-        }
-        const movie = await MOVIE.findById(movieId)
-        if(!movie){
-            res.status(404).json('movie not found')
-        }
-
-        theater.movieSchedules.push({
-            movieId,
-            showTime,
-            notAvailableSeats : [],
-            showDate 
-        })
-        await theater.save();
-        res.status(201).json({message:'successfully created movie schedules',theater})
-
-        
-    } catch (error) {
-        console.log(error)
-        res.status(500).json('Internal server error')
-
-        
-    }
-}
-
 
 const theaterByCity = async(req,res)=>{
     try {

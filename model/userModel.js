@@ -21,12 +21,14 @@ const userSchema = mongoose.Schema({
    role :{
     type : String,
     default : 'user'
-   }
-//    bookings :{
-//     type : String,
-//     default :[]
-//    }
-   
+   },
+
+bookings: [
+    { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'BOOKING' 
+    }],
+
 
 },{
     timestamps : true
