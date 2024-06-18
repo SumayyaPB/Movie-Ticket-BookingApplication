@@ -15,7 +15,7 @@ const app = express();
 const corsOptions = {
   origin:
     // "http://localhost:5173" ||
-    "https://movietickerbooking.netlify.app" ||
+    // "https://movietickerbooking.netlify.app" ||
     "https://moviesticketbooking.netlify.app" ||
     "https://movie-ticket-bookingapplication.onrender.com", // Your frontend URL
   credentials: true, // This allows the server to accept credentials
