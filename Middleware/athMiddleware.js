@@ -36,7 +36,6 @@ function authenticateUser(req, res, next) {
   if (!token) {
     return res.status(401).json({ message: "No token provided", success: false });
   }
-
   jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
     if (err) {
       console.error("JWT verification error:", err);

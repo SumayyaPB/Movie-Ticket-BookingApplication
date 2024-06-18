@@ -55,8 +55,8 @@ const doLogin  = async (req,res)=>{
     if(!matchPassword){
       return res.status(400).json("incorrect password")
     }
-  
-    const token = jwt.sign({id : user.id, role : user.role},process.env.SECRET_KEY,{expiresIn:"1d"})
+   const payload = {id : user.id, role : user.role}
+    const token = jwt.sign(payload,process.env.SECRET_KEY,{expiresIn:"1d"})
     res.cookie("token",token);
     res.status(200).json({message:"Logged In!"})
     } catch (error) {
@@ -88,12 +88,23 @@ const checkLogin = async (req, res) => {
   }
 };
 
-export default checkLogin;
+const getUser = async(req,res)=>{
+  try {
+    const getUser = await USER.find({})
+    if(!getUser){
+     res.status(400).json('Not found the user')
+    }
+    res.status(200).json(getUser)
+ } catch (error) {
+     console.log(error);
+     res.status(500).json('Internal server error')
+ }
+}
 
 
 
 
 
-export {doSignUp,doLogin,checkLogin} 
+export {doSignUp,doLogin,checkLogin,getUser} 
 
 

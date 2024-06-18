@@ -22,18 +22,11 @@ const addMovie = async(req,res)=>{
                 });
             });
         };
-
         // Wait for the Cloudinary upload to complete
         const result = await uploadToCloudinary(req.file.path);
         const imageUrl = result.url;
         console.log("hi",imageUrl)
-        // cloudinaryInstance.uploader.upload(req.file.path, async (err, result) => {
-        //     if(err){
-        //        console.log(err);
-        //        return res.status(500).json({error:"Error"})
-        //     }
-        // })
-        // const imageUrl = result.url
+    
          console.log('hitted')
         const {title,description,releaseDate,rating,duration,genre}=req.body;
         console.log(req.body)

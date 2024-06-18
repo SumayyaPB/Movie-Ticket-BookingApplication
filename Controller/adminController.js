@@ -61,8 +61,7 @@ const signIn = async(req,res)=>{
     } catch (error) {
         console.log(error);
         res.status(500).json({error : 'Internal Server Error'}) 
-    }
-   
+    }  
 }
 const getProfile = async(req,res)=>{
     console.log('hitted')
@@ -76,6 +75,7 @@ const getProfile = async(req,res)=>{
         user : req.user,
         adminUsers
     })
+
         
     } catch (error) {
         console.log(error);

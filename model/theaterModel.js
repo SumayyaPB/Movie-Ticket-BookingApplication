@@ -38,8 +38,12 @@ const theaterSchema = new mongoose.Schema({
                 }],
             showDate : Date
         }
-    ] 
-
+    ], 
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ADMIN', // Assuming 'User' is your user model
+        required: true
+    }
     
     
   

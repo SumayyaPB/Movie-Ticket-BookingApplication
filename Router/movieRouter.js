@@ -4,7 +4,7 @@ import { authenticateTheaterOwner } from '../Middleware/adminMiddleware.js';
 import upload from '../Middleware/multerMiddleware.js';
 const movieRouter = express.Router();
 
-movieRouter.post('/addmovie',authenticateTheaterOwner,upload.single('file'),addMovie);
+movieRouter.post('/addmovie',authenticateTheaterOwner,upload.single('movieImg'),addMovie);
 
 movieRouter.post('/addcelebrity',authenticateTheaterOwner,addCelebtoMovie)
 

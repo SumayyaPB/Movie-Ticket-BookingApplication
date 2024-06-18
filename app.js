@@ -8,15 +8,20 @@ import adminRouter from './Router/adminRouter.js'
 import { movieRouter } from './Router/movieRouter.js'
 import { theaterRouter } from './Router/theaterRouter.js'
 import { bookingRouter } from './Router/bookingRouter.js'
-// import { imageUploadRouter } from './Router/imageUploadRouter.js'
 import { paymentRouter } from './Router/paymentRouter.js'
 
 const app = express()
+// app.use(cors())
+const corsOptions = {
+  origin: 'http://localhost:5173' || '', // Your frontend URL
+  credentials: true,  // This allows the server to accept credentials
+};
+app.use(cors(corsOptions));
 
 app.use(express.json())
 app.use(cookieParser())
 
-app.use(cors())
+
 app.use('/api/v1/user',userRouter);
 app.use('/api/v1/admin',adminRouter);
 app.use('/api/v1/movie',movieRouter);
