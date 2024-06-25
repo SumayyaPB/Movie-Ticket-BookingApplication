@@ -32,6 +32,7 @@ dotenv.config();
 
 function authenticateUser(req, res, next) {
   const token = req.cookies.token;
+  console.log(token)
 
   if (!token) {
     return res.status(401).json({ message: "No token provided", success: false });
