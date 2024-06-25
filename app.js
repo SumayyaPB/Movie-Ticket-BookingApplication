@@ -15,8 +15,7 @@ const app = express();
 const corsOptions = {
   origin:
     // "http://localhost:5173" ||
-    "https://profound-unicorn-38a0b8.netlify.app/" ||
-    "https://movie-ticket-bookingapplication-1.onrender.com/",
+    "https://profound-unicorn-38a0b8.netlify.app",
   credentials: true,
 };
 app.use(cors(corsOptions));
