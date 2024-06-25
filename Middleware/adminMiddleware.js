@@ -15,6 +15,7 @@ const authenticateTheaterOwner = (req,res,next)=>{
         return res.send('not Authenticated')
     }
     next()
+    
 
    })
 }

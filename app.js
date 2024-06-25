@@ -14,11 +14,8 @@ const app = express();
 // app.use(cors())
 const corsOptions = {
   origin:
-    // "http://localhost:5173" ||
-    // "https://movietickerbooking.netlify.app" ||
-    "https://moviesticketbooking.netlify.app" ||
-    "https://movie-ticket-bookingapplication.onrender.com", // Your frontend URL
-  credentials: true, // This allows the server to accept credentials
+    "http://localhost:5173",
+  credentials: true, 
 };
 app.use(cors(corsOptions));
 

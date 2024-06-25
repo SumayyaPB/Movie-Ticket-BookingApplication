@@ -4,12 +4,12 @@ import THEATER from "../model/theaterModel.js";
 const addTheater = async (req, res) => {
   console.log(req.body);
   try {
-    const { theaterName, seats, city, screenType } = req.body;
+    const { theaterName, seats, location, screenType } = req.body;
 
     const newTheater = new THEATER({
       theaterName,
       seats,
-      city,
+      location,
       screenType,
       movieSchedules: [],
     });
@@ -56,9 +56,9 @@ const addMovieScheduletoScreen = async (req, res) => {
 
 const theaterByCity = async (req, res) => {
   try {
-    const city = req.params.city.toLowerCase();
-    console.log(city);
-    const theater = await THEATER.find({ city });
+    const location = req.params.city.toLowerCase();
+    console.log(location);
+    const theater = await THEATER.find({ location });
     console.log(theater);
     if (!theater) {
       res.status(404).json("No theaters found in the specified city");
@@ -75,12 +75,12 @@ const theaterByCity = async (req, res) => {
 
 const theaterByMovieSchedule = async (req, res) => {
   try {
-    const city = req.params.city.toLowerCase();
+    const location = req.params.city.toLowerCase();
     const date = req.params.date;
     const movieId = req.params.movieId;
     // console.log(city,date,movieId)
 
-    const theaters = await THEATER.find({ city });
+    const theaters = await THEATER.find({ location });
     if (!theaters || theaters.length === 0) {
       res.status(404).json("No theaters found in the specified city");
     }
@@ -150,6 +150,7 @@ const scheduleByMovie = async (req, res) => {
       .json({
         message: "Movie schedule retrieved successfully",
         movieSchedules,
+        theaters
       });
   } catch (error) {
     console.log(error);
@@ -158,8 +159,8 @@ const scheduleByMovie = async (req, res) => {
 };
 const theatersByUser = async (req,res) => {
   try {
-    const ownerId = req.user.id; // Assuming `req.user` contains the authenticated user's data
-    const theaters = await THEATER.find({ owner: ownerId });
+    // Assuming `req.user` contains the authenticated user's data
+    const theaters = await THEATER.find({});
     res.json(theaters);
   } catch (error) {
     console.error(error);

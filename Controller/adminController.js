@@ -117,7 +117,6 @@ const CheckTheaterOwner = async(req,res)=>{
     
         console.log("Authenticated user ID:", user.id);
     
-    
         // const findUser = await USER.findById({ id: user.id });
         const findUser = await ADMIN.findOne({ _id: new mongoose.Types.ObjectId(user.id) });
     
@@ -131,6 +130,7 @@ const CheckTheaterOwner = async(req,res)=>{
         res.status(500).json({ message: 'Internal server error', success: false });
       }
 }
+
 
 
 export {signUp,signIn,getProfile,updateProfile,deleteProfile,CheckTheaterOwner}

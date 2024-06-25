@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 const doSignUp = async(req,res)=>{
  console.log(req.body)
    try {
-      const {firstName,lastName,email,password} = req.body
+      const {firstName,lastName,email,password,city} = req.body
     
       const userExist = await USER.find({email})
 
@@ -22,6 +22,7 @@ const doSignUp = async(req,res)=>{
         firstName,
         lastName,
         email,
+        city,
         password:hashedPassword,
         role : 'user'
         
@@ -96,15 +97,43 @@ const getUser = async(req,res)=>{
     }
     res.status(200).json(getUser)
  } catch (error) {
-     console.log(error);
-     res.status(500).json('Internal server error')
+  console.log(error);
+  res.status(500).json('Internal server error')
  }
+}
+const changeCity = async(req,res)=>{
+  try {
+    const {city}= req.body
+    const user = await USER.findOne({_id: req.userId})
+
+    if(!user){
+      return res.status(400).json("Invalid Credential")
+    }else{
+      user.city = city
+      await user.save();
+      return res.status(200).json({message:"city changed successfully"})
+    }
+    
+  } catch (error) {
+    console.log(error);
+     res.status(500).json('Internal server error')
+  }
+}
+
+const logOut = async(req,res)=>{
+  try {
+    res.clearCookie("token")
+  res.status(200).json({messgae:"user Loggout successfully"})
+  } catch (error) {
+    console.log(error);
+     res.status(500).json('Internal server error')
+  }
 }
 
 
 
 
 
-export {doSignUp,doLogin,checkLogin,getUser} 
+export {doSignUp,doLogin,checkLogin,getUser,logOut,changeCity} 
 
 

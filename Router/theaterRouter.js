@@ -10,7 +10,6 @@ theaterRouter.post('/movieschedules',authenticateTheaterOwner,addMovieScheduleto
 theaterRouter.get('/theaterbycity/:city',theaterByCity);
 
 // theaterRouter.get('/theaterbyid/:id',theaterById);
-
 theaterRouter.get('/theatersByUser', theatersByUser);
 
 theaterRouter.patch('/updatetheater/:theaterId', updateTheater);
@@ -22,6 +21,7 @@ theaterRouter.get('/schedulebymovie/:theaterId/:date/:movieId',scheduleByMovie);
 theaterRouter.patch('/updatetheater/:id',authenticateTheaterOwner,updateTheater);
 
 theaterRouter.delete('/deletetheater/:id',authenticateTheaterOwner,dltTheater)
+
 
 
 export {theaterRouter}

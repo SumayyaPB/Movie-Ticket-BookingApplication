@@ -64,7 +64,6 @@ const bookingTicket = async(req,res)=>{
          await theater.save();
          console.log('theater saved');
         
-
          user.bookings.push(newBooking._id);
          await user.save();
          console.log('user saved');
