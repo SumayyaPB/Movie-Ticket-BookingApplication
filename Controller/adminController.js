@@ -56,7 +56,12 @@ const signIn = async(req,res)=>{
         role : adminUser.role
     }
     const token = jwt.sign(payload,process.env.SECRET_KEY,{expiresIn: '1d'})
-    res.cookie("token", token);
+    // res.cookie("token", token);
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true, // Set to true if you're using HTTPS
+        sameSite: "None", // Necessary for cross-site cookies
+      });
     res.status(200).json({message:"Logged In", adminUser})
     } catch (error) {
         console.log(error);
