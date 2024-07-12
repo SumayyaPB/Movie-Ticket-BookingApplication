@@ -4,4 +4,5 @@ const bookingRouter = express.Router()
 
 bookingRouter.post('/bookingticket',bookingTicket)
 
+
 export {bookingRouter}

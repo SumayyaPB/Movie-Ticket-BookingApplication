@@ -14,6 +14,6 @@ movieRouter.get('/getmovies/:id',getMovieById);
 
 movieRouter.patch('/updatemovie/:id',authenticateTheaterOwner,updateMovie)
 
-movieRouter.delete('/deletemovie/:id',authenticateTheaterOwner,dltMovie)
+movieRouter.delete('/deletemovie/:id',dltMovie)
 
 export {movieRouter}
