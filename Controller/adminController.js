@@ -9,7 +9,7 @@ const signUp = async(req,res)=>{
     try {
         const {name,location,email,password,} = req.body
         console.log(email)
-        const adminExist = await ADMIN.findOne({email})
+        const adminExist = await ADMIN.find({email})
         console.log(adminExist)
         if(adminExist){
             return res.status(400).json('user already exist')
