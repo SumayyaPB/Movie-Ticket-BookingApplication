@@ -51,7 +51,7 @@ const doLogin = async (req, res) => {
     const matchPassword = await bcrypt.compare(password, user.password);
 
     if (!matchPassword) {
-      return res.status(400).json("incorrect password");
+      return res.status(409).json("incorrect password");
     }
     const payload = { id: user.id, role: user.role };
     const token = jwt.sign(payload, process.env.SECRET_KEY, {
