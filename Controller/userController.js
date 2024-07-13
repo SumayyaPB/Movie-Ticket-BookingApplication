@@ -10,7 +10,7 @@ const doSignUp = async (req, res) => {
 
     const userExist = await USER.find({ email });
 
-    if (!userExist) {
+    if (userExist) {
       return res.status(400).json({ message: "User already exist" });
     }
 
