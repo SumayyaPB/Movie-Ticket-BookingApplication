@@ -27,9 +27,9 @@ const signUp = async(req,res)=>{
         })
         await adminUser.save()
         console.log(adminUser)
-        if(!adminUser){
-            res.status(400).json('user is not created')
-        }
+        // if(!adminUser){
+        //     res.status(400).json('user is not created')
+        // }
         res.status(201).json({message:" Successfully Signed"})
     
         
@@ -49,14 +49,13 @@ const signIn = async(req,res)=>{
     }
     const matchPassword = await bcrypt.compare(password, adminUser.password)
     if(!matchPassword){
-        res.status(400).json({error : "Incorrect password"})
+        res.status(409).json({error : "Incorrect password"})
     }
     const payload = { 
         id :adminUser.id ,
         role : adminUser.role
     }
     const token = jwt.sign(payload,process.env.SECRET_KEY,{expiresIn: '1d'})
-    // res.cookie("token", token);
     res.cookie("token", token, {
         httpOnly: true,
         secure: true, // Set to true if you're using HTTPS
