@@ -8,7 +8,7 @@ const doSignUp = async (req, res) => {
   try {
     const { firstName, lastName, email, password, city } = req.body;
 
-    const userExist = await USER.find({ email });
+    const userExist = await USER.findOne({ email });
 
     if (userExist) {
       return res.status(400).json({ message: "User already exist" });
@@ -28,9 +28,9 @@ const doSignUp = async (req, res) => {
     await user.save();
     console.log(user);
 
-    if (!user) {
-      return res.status(400).json("user is not created");
-    }
+    // if (!user) {
+    //   return res.status(400).json("user is not created");
+    // }
 
     res.status(201).json({ message: "successfully signed in!" });
   } catch (error) {
